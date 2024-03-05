@@ -1,0 +1,53 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Sign IN {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+	<!-- [ auth-signin ] start -->
+	<div class="auth-wrapper">
+		<div class="auth-content">
+			<div class="card">
+				<div class="row align-items-center text-center">
+					<div class="col-md-12">
+						<div class="card-body">
+							
+							<h4 class="mb-3 f-w-400">Verido.AI Dashboard</h4>
+
+							<form role="form" method="post" action="">
+
+								{% csrf_token %} 
+
+								<div class="input-group mb-3">
+									<span class="input-group-text"><i data-feather="user"></i></span>
+									{{ form.username }}
+								</div>
+								<div class="input-group mb-4">
+									<span class="input-group-text"><i data-feather="lock"></i></span>
+									{{ form.password }}
+								</div>
+								
+								
+								<br />
+								<button type="submit" name="login" class="btn btn-block btn-primary mb-4">Sign IN</button>
+							</form>
+
+							<!-- <p class="mb-0 text-muted">Don’t have an account? 
+								<a href="{% url 'register' %}" class="f-w-400">Sign UP</a>
+							</p> -->
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- [ auth-signin ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

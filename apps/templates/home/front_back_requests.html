@@ -1,0 +1,141 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Tables {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style>
+    #myAlert {
+      display: none;
+    }
+  </style>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <section class="pc-container">
+        <div class="pcoded-content">
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item"><a href="/partners">Partners</a></li>
+                                <li class="breadcrumb-item"><a href="/partners">{{partner_name}}</a></li>
+                                <li class="breadcrumb-item"><a href="/partners/{{partner_name}}/front">{{ model_name | upper }}</a></li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <a class="btn btn-danger" role="button" href="/partners/{{ partner_name }}/{{ model_name }}/download" download="All_requests-{{partner_name}}-{{ model_name }}.xlsx" onclick="showAlert()">
+                    Download All Requests
+                </a>
+            </div>
+        <br><br><br><br>
+        <div id="myAlert" class="alert alert-primary" role="alert">
+          Please wait, your processing request will download soon!
+        </div>
+            <div class="row">
+                
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>
+
+                                <div class="dropdown">
+                                    <b>{{ partner_name  | upper }} • </b> {{ model_name | upper }} • {{ page_year }} •
+                                    <button class="btn btn-gray-800 d-inline-flex align-items-center me-2 dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                        {{ page_month }}
+                                    </button>
+                                    <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
+
+                                      {% for i in months_names %}
+                                        <a class="dropdown-item d-flex align-items-center" href="{{ forloop.counter }}">
+
+                                            {{ i }}
+                                        </a>
+
+                                      {% endfor %}
+
+                                    </div>
+
+
+                                </div>
+                            </h4>
+                        <a class="btn btn-danger" role="button" href="/partners/{{ partner_name }}/{{ model_name }}/{{ page_year }}/{{ page_month }}/download" download="{{ partner_name }}-{{ model_name }}-{{ page_year }}-{{ page_month }}.xlsx" onclick="showAlert()">
+                            <svg class="icon icon-xxs ms-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+
+                        </div>
+
+                        <div class="card-body table-border-style">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Img Size</th>
+                                            <th>Weight Img</th>
+                                            <th>Format Img</th>
+                                            <th>Special ID</th>
+                                            <th>Find Pass</th>
+                                            <th>Pass Num</th>
+                                            <th>Time</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody>
+                                        {% for data in front_back_info_filtered %}
+                                            
+                                                <tr>
+                                                    <td>{{ data.1 }}</td>
+                                                    <td>{{ data.3 }}</td>
+                                                    <td>{{ data.4 }}</td>
+                                                    <td>{{ data.5 }}</td>
+                                                    <td>{{ data.6 }}</td>
+                                                    <td>{{ data.7 }}</td>
+                                                    <td>{{ data.8 }}</td>
+                                                    <td>{{ data.9 }}</td>
+                                                    <td>{{ data.10 }}</td>
+                                                </tr>
+                                            
+                                        {% endfor %}
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
+{% block javascripts %}
+
+<script>
+  function showAlert() {
+    var alertDiv = document.getElementById('myAlert');
+    alertDiv.style.display = 'block';
+
+    setTimeout(function() {
+      alertDiv.style.display = 'none';
+      initiateDownload();
+    }, 7000); // 5000 milliseconds = 5 seconds
+  }
+
+</script>
+{% endblock javascripts %}
